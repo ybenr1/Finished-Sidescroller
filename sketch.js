@@ -2,10 +2,13 @@ var man;
 var bad = [];
 var bad2 = [];
 var sceneNum = 0;
-let timer = 22 
+let timer = 22
 //finish up hit function https://www.youtube.com/watch?v=l0HoJHc-63Q&t=1027s
 function setup() {
   createCanvas(640, 360);
+ genObs();
+}
+function genObs(){
   man = new Person();
   for (let i = 0; i < 100;   i++) {
     bad[i] = new obstacle();
@@ -14,7 +17,6 @@ function setup() {
     bad2[l] = new obstacle2();
 }
 }
-  
 function keyPressed() {
   if (key == ' ') {
     let force = createVector(0, -5);
@@ -40,11 +42,15 @@ function draw() {
     text(timer, 400, 50);
     
     if (frameCount % 60 == 0 && timer > 0) {
-    timer --;
-    
+      timer--;
+   }else if(timer<=0){
+      timer=22;
+      man.score=0;
+     genObs();
     }
     if (timer == 0) {
       sceneNum = 2;
+      
     }
    
 
@@ -100,9 +106,10 @@ function scene0() {
   fill(255, 255, 0);
   text("Side Scrolller!", 150, 100);
   textSize(20);
-  text("Press the space bar to jump", 190, 175);
-  text("Collect as much squares as you can in 22 seconds", 100, 235);
-  text("Press S to Start", 240, 300);
+  text("Press the space bar to jump", 190, 145);
+  text("Collect as much squares as you can in 22 seconds", 100, 205);
+  text("Remmember to dodge the red squares",140,265);
+  text("Press S to Start", 240, 320);
 }
 
 function scene2() {
@@ -114,6 +121,6 @@ function scene2() {
   textSize(30);
    text("You collected‏‏‎ ‎" + man.score + "‏‏‎ ‎cubes!", 160,195);
   fill("yellow");
-  text("Reload tab to play again", 150, 300);
+  text("Press S to play again", 165, 300);
 
 }
